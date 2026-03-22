@@ -193,7 +193,7 @@
                     <div class="confidence-fill" :class="confidenceClass(item.confidence)" :style="{ width: item.confidence + '%' }"></div>
                   </div>
                 </div>
-                <div class="a-bubble" v-html="renderMarkdown(item.answer)"></div>
+                <div class="a-bubble" v-html="renderMarkdown(item.answer) + (item.streaming ? '<span class=\'cursor\'></span>' : '')"></div>
                 <div v-if="item.sources?.length" class="sources-row">
                   <span class="sources-label">{{ t.sources }}:</span>
                   <span
@@ -231,7 +231,9 @@ import { ref, computed } from 'vue'
 import EvalDashboard from './EvalDashboard.vue'
 import { askQuestion } from './api.js'
 
-const showEval = ref(false)
+const showEval       = ref(false)
+const streamingAnswer = ref('')
+const isStreaming     = ref(false)
 const query   = ref('')
 const showUpload   = ref(false)
 const isDragging   = ref(false)
@@ -716,6 +718,17 @@ function renderMarkdown(text) {
 .doc-list-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-lt); margin-bottom: 0.5rem; }
 .doc-item { font-size: 0.83rem; color: var(--text-mid); padding: 0.4rem 0; border-bottom: 1px solid #f0ece3; }
 .doc-item:last-child { border-bottom: none; }
+
+/* ── Streaming cursor ── */
+.cursor {
+  display: inline-block;
+  width: 2px; height: 1em;
+  background: var(--sage);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink .7s steps(1) infinite;
+}
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
 
 /* ── Footer ── */
 .footer { background: var(--forest); color: rgba(255,255,255,0.5); padding: 1.2rem; margin-top: 3rem; position: relative; z-index: 1; }
