@@ -178,4 +178,16 @@ cython_debug/
 #  exclude from AI features like autocomplete and code analysis. Recommended for sensitive data
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
-.cursorindexingignore
+.cursorindexingignore 
+# ── Project specific ──────────────────────
+vector_db/
+node_modules/
+frontend/dist/
+.vite/
+
+# ── OS ────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── VS Code ───────────────────────────────
+.vscode/
